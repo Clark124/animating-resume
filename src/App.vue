@@ -3,27 +3,26 @@
     <StyleEditor ref="styleEditor" :code="currentStyle"></StyleEditor>
     <ResumeEditor ref="resumeEditor" :markdown="currentMarkdown" :enableHtml="enableHtml"></ResumeEditor>
   </div>
-  
 </template>
 
 <script>
 import StyleEditor from './components/StyleEditor'
 import ResumeEditor from './components/ResumeEditor'
-
 export default {
   name: 'app',
-  components:{
-    StyleEditor,ResumeEditor
-    },
-  
-  data(){
+  components: {
+    StyleEditor, ResumeEditor
+  },
+
+  data() {
     return {
-      interval:20,
-      currentStyle:'',
+      interval: 20,
+      currentStyle: '',
       enableHtml: false,
       finalStyle: [
-      `
+        `
       /*
+      * Inspired by http://strml.net/
       * 大家好，我是徐阳杰
       * 现在我来做一个非常酷炫的简历了
       */
@@ -56,8 +55,8 @@ export default {
        }
        .styleEditor{
          position: fixed; left: 0; top: 0;
-         -webkit-transtion: none;
-                 transtion: none;
+         -webkit-transition: none;
+                 transition: none;
          -webkit-transform: rotateY(10deg) translateZ(-100px);
                  transform: rotateY(10deg) translateZ(-100px);      
        }
@@ -72,133 +71,140 @@ export default {
        } 
       /* 好了，我开始写简历了 */
 
-        `,
-      `
+      `,
+        `
       /* 这个简历好像差点什么
       * 对了，这是 Markdown 格式的，我需要变成对 HR 更友好的格式
       * 简单，用开源工具翻译成 HTML 就行了
       */
       `,
-      `
+        `
       /* 再对 HTML 加点样式 */
-      .resumeEditor{
-        padding: 2em;
+      .resumeEditor {
+          padding: 2em;
       }
-      .resumeEditor h2{
-        display: inline-block;
-        border-bottom: 1px solid;
-        margin: 1em 0 .5em;
+      .resumeEditor h2 {
+          display: inline-block;
+          border-bottom: 1px solid;
+          margin: 1em 0 .5em;
       }
-      .resumeEditor ul,.resumeEditor ol{
-        list-style: none;
+      .resumeEditor ul {
+          list-style: none;
       }
-      .resumeEditor ul> li::before{
-        content: '•';
-        margin-right: .5em;
+      .resumeEditor ul {
+          counter-reset: section;
       }
-      .resumeEditor ol {
-        counter-reset: section;
-      }
-      .resumeEditor ol li::before {
-        counter-increment: section;            
-        content: counters(section, ".") " ";  
-        margin-right: .5em;
+      .resumeEditor ul li::before {
+          counter-increment: section;
+          content: counters(section, ".") ;
+          margin-right: .5em;
       }
       .resumeEditor blockquote {
-        margin: 1em;
-        padding: .5em;
-        background: #ddd;
-      }
+          margin: 1em;
+          padding: .5em;
+          b
       `
       ],
-      currentMarkdown:"",
-      finalMarkdown:` 方应杭
+      currentMarkdown: "",
+      finalMarkdown: ` 
+徐阳杰
 ----
-资深前端工程师，资深前端讲师，现在在 [饥人谷](http://jirengu.com) 教前端课程。
+前端工程师
 技能
 ----
-* 前端开发
-* Rails 开发
-* Node.js 开发
-* 前端授课
-工作经历
-----
-1. [饥人谷](http://jirengu.com)
-2. 腾讯即时通讯平台部
-3. 阿里巴巴B2B部门
-4. 彩程知人项目组
+### 静态开发：
+- 熟悉 W3C 规范，写出规范化、语义化的代码，熟悉CSS3，熟悉盒模型、浮动，定位，BFC 等概念。了解响应式和 flex 布局。能使用 HTML5、CSS5做出像素级还原的静态页面。
+- 了解 PhotoShop的使用，熟料掌握切图技能。
+
+### 动态交互：
+- 熟悉原生 JS 和 jQuery,利用 JS 和 jQuery 实现常见效果，能够不依赖库手写 tab 切换、轮播、瀑布流布局、懒加载等效果。掌握事件模型、DOM 操作、闭包、原型链、面向对象、封装等知识。
+- 掌握 AJAX、JSONP API 等，能与后端程序员配合完成动态页面开发。
+- 了解 CommonJS、AMD 的模块化方案开发。
+- 掌握Bootstrap的用法，能快速开发兼容PC、移动端的网页。
+- 了解es6，能使用常见语法及规范编写代码。
+
+### 框架&工具：
+- 熟悉MVVM框架，能用vue.js开发SPA单页应用，配合element.ui,mint.ui等UI库能快速开发适配PC端、移动端的页面。
+- 了解react.js的基本用法，并有一定的使用经验。
+- 熟练使用 VSCode、Webstorm、Git、Linux 命令行等开发工具。
+
+### 后端语言：
+- 熟悉原生node.js的特性，能使用Express、MongoDB搭建服务器及数据库。
+- 了解LeanCloud第三方数据库的使用方法。
+- 了解HTTP协议。
+
 链接
 ----
-* [GitHub](https://github.com/frankfang)
-* [我的文章](https://www.zhihu.com/people/zhihusucks/pins/posts)
-> 如果你喜欢这个效果，Fork [我的项目](https://github.com/jirengu-inc/animating-resume)，打造你自己的简历！
+* [GitHub](https://github.com/Clark124)
+* [我的文章](http://www.jianshu.com/u/ed4670590fc8)
+> 如果你喜欢这个效果，Fork [我的项目](https://clark124.github.io/animating-resume/dist)，打造你自己的简历！
       `
     }
   },
 
-  created(){
+  created() {
     this.makeResume()
   },
-    
-  methods:{
-    makeResume: async function(){
+
+  methods: {
+    makeResume: async function () {
       await this.progressShowStyle(0)
       await this.progressShowResume()
       await this.progressShowStyle(1)
       await this.showHtml()
       await this.progressShowStyle(2)
     },
-    showHtml: function(){
-      return new Promise((resolve,reject)=>{
+    showHtml: function () {
+      return new Promise((resolve, reject) => {
         this.enableHtml = true
         resolve()
       })
     },
-    progressShowStyle(n){
-      return new Promise((resolve,reject)=>{
+    progressShowStyle(n) {
+      return new Promise((resolve, reject) => {
         let interval = this.interval
-        let showStyle =(async function(){
+        let showStyle = (async function () {
           let style = this.finalStyle[n]
-          if(!style){return}
-        let length = this.finalStyle.filter((_,index)=>index<=n).map((item)=>item.length).reduce((p,c)=>p+c,0)
-        let prefixLength = length - style.length
-        if(this.currentStyle.length<length){
-          let l =this.currentStyle.length - prefixLength
-          let char = style.substring(l,l+1) || ' '
-          this.currentStyle += char
-          if(style.substring(l - 1,l) === '\n' && this.$refs.styleEditor){
-            this.$nextTick(()=>{
-              this.$refs.styleEditor.goBottom()
-            })
+          if (!style) { return }
+          let length = this.finalStyle.filter((_, index) => index <= n).map((item) => item.length).reduce((p, c) => p + c, 0)
+          let prefixLength = length - style.length
+          if (this.currentStyle.length < length) {
+            let l = this.currentStyle.length - prefixLength
+            let char = style.substring(l, l + 1) || ' '
+            this.currentStyle += char
+            if (style.substring(l - 1, l) === '\n' && this.$refs.styleEditor) {
+              this.$nextTick(() => {
+                this.$refs.styleEditor.goBottom()
+              })
+            }
+            setTimeout(showStyle, interval)
+          } else {
+            resolve()
           }
-          setTimeout(showStyle,interval)
-        } else{
-          resolve()
-        }
         }).bind(this)
         showStyle()
       })
     },
-    progressShowResume(){
-      return new Promise((resolve,reject)=>{
+    progressShowResume() {
+      return new Promise((resolve, reject) => {
         let length = this.finalMarkdown.length
         let interval = this.interval
-      let ShowResume = ()=>{
-        if(this.currentMarkdown.length <length ){
-          this.currentMarkdown = this.finalMarkdown.substring(0,this.currentMarkdown.length+1)
-          let lastChar = this.currentMarkdown[this.currentMarkdown.length -1]
-          let prevChar = this.currentMarkdown[this.currentMarkdown.length -2]
-          if(prevChar ==='\n' && this.$refs.resumeEditor){
-            this.$nextTick(()=>{
-              this.$refs.resumeEditor.goBottom()
-            })
+        let ShowResume = () => {
+          if (this.currentMarkdown.length < length) {
+            this.currentMarkdown = this.finalMarkdown.substring(0, this.currentMarkdown.length + 1)
+            let lastChar = this.currentMarkdown[this.currentMarkdown.length - 1]
+            let prevChar = this.currentMarkdown[this.currentMarkdown.length - 2]
+            if (prevChar === '\n' && this.$refs.resumeEditor) {
+              this.$nextTick(() => {
+                this.$refs.resumeEditor.goBottom()
+              })
+            }
+            setTimeout(ShowResume, interval)
+          } else {
+            resolve()
           }
-          setTimeout(ShowResume,interval)
-        }else{
-          resolve()
         }
-      }
-      ShowResume()
+        ShowResume()
       })
     }
   },
@@ -211,8 +217,8 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  
 }
+
 html {
   min-height: 100vh;
 }
@@ -221,6 +227,4 @@ html {
   -webkit-transition: all .3s;
   transition: all .3s;
 }
-     
-
 </style>

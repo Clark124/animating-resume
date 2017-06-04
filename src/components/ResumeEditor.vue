@@ -1,7 +1,7 @@
 <template>
     <div class="resumeEditor" :class="{htmlMode:enableHtml}"  ref="container">
         <div v-if="enableHtml" v-html="result"></div>
-        <pre v-else>{{result}}</pre>
+        <pre v-else>{{result}}</pre> 
     </div>
 </template>
 
