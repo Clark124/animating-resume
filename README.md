@@ -1,21 +1,16 @@
-# resume-b-resume
+# 一个会动的简历模板
 
-> A Vue.js project
+> This is my resume
 
-## Build Setup
+[预览](https://clark124.github.io/animating-resume/dist)
 
-``` bash
-# install dependencies
+## 使用方法
+
+```
+git clone git@github.com:Clark124/animating-resume.git
+cd animating-resume
 npm install
-
-# serve with hot reload at localhost:8080
 npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+

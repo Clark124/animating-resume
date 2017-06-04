@@ -102,7 +102,7 @@ export default {
       .resumeEditor blockquote {
           margin: 1em;
           padding: .5em;
-          b
+      }
       `
       ],
       currentMarkdown: "",
