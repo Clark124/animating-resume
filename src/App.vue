@@ -102,6 +102,7 @@ export default {
       .resumeEditor blockquote {
           margin: 1em;
           padding: .5em;
+          background: #ddd;
       }
       `
       ],
@@ -137,7 +138,7 @@ export default {
 ----
 * [GitHub](https://github.com/Clark124)
 * [我的文章](http://www.jianshu.com/u/ed4670590fc8)
-> 如果你喜欢这个效果，Fork [我的项目](https://clark124.github.io/animating-resume/dist)，打造你自己的简历！
+> 如果你喜欢这个效果，Fork [我的项目](https://github.com/Clark124/animating-resume)，打造你自己的简历！
       `
     }
   },
